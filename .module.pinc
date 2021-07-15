@@ -1,0 +1,45 @@
+<?php
+// @author: C.A.D BONDJE DOUE
+// @file: /Volumes/Data/wwwroot/core/Packages/Modules/igk/JS/VueJS/.module.pinc.php
+// @desc: vue.js importer utility
+// @date: 20210708 19:00:50
+namespace igk\JS\VueJS;
+
+use IGKHtmlItemBase;
+$reg("setPolyfill", function($p){
+	$this->setEnvParam("polyfill", $p);
+	return $this;
+});
+$reg("getPolyfill", function(){
+	return $this->getEnvParam("polyfill");
+});
+$reg("initDoc", function($doc, $setting=null){
+	$this->setCurrentDoc($doc);
+	igk_ctrl_bind_css_file($this, null);
+	$polyfill  = Polyfill::Create($this->Configs->get('PolyfillVersion', 2));
+	$js = $polyfill->installCDN(); 
+	$doc->addTempScript($js)->activate("defer");
+	$this->setPolyfill($polyfill);
+	
+});
+ 
+
+IGKHtmlItemBase::RegisterMacros("vuejs", \igk\JS\VueJS\MacrosHelper::class);
+
+// + module definition
+return [
+//------------------------------------------------
+// define entry name space
+//
+"entry_NS"=>"igk\JS\VueJS",
+
+//------------------------------------------------
+// version
+//
+"version"=>"1.0",
+
+//-------------------------------------------------
+// author
+//
+"author"=>"C.A.D BONDJE DOUE"
+];
