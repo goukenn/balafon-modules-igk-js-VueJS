@@ -10,7 +10,9 @@ use IGKHtmlItem;
  * @package igk\JS\VueJS\Html
  */
 abstract class CoreNode extends IGKHtmlItem{
-
+    const MEMORY_HISTORY = "memory";
+    const HASH_HISTORY = "hash";
+    const WEB_HISTORY = "web";
     /**
      * 
      * @param mixed $tagname 

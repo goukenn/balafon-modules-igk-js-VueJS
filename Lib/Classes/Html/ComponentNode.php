@@ -15,6 +15,15 @@ use function igk\JS\VueJS\module as module;
 class ComponentNode extends CoreNode{
     private $expectedTag;
     private $m_name; 
+    /**
+     * bind key name
+     * @var mixed
+     */
+    private $m_bind;
+    public function setBind(bool $bind) {
+        $this->m_bind = $bind;
+        return $this;
+    }
     public function getTagName()
     {   
         $rendering = 0;
@@ -22,7 +31,7 @@ class ComponentNode extends CoreNode{
             $rendering = $pt[0]->renderNode === $this; 
        }
         if ($rendering){
-            $pversion = Utils::module()->getPolyfill()->getVersion();
+            $pversion = Utils::Module()->getPolyfill()->getVersion();
             if (version_compare("3", $pversion,">=")){
                 $s = "component";
             }else {
@@ -44,7 +53,11 @@ class ComponentNode extends CoreNode{
         if (!$this->getIsVisible()){
             return false;
         }
-        $this["is"] = $this->m_name;
+        $key = "is";
+        if ($this->m_bind){
+            $key = ":".$key;
+        }
+        $this[$key] = $this->m_name;
         return true;
     }
 }

@@ -18,7 +18,7 @@ use igk\JS\VueJS\IO\OptionBuilder;
  */
 function igk_html_node_vuejs_app($id, $data=null){
     $n = new igk\JS\VueJS\Html\App();
-    $n->setId($id);
+    $n->setAttribute("id", $id);
     $rf = igk_get_module("igk/js/VueJS");
     if ($data ===null){
         $data = [];
@@ -29,7 +29,6 @@ function igk_html_node_vuejs_app($id, $data=null){
         $data["el"]= "#".$id;
     }
     $n->data = $data; 
-
     return $n;
 }
 

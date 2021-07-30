@@ -8,6 +8,8 @@ use IGKHtmlItem;
 /**
  * a transition template node
  * @package igk\JS\VueJS\Html
+ * ** name 
+ * ** mode 
  */
 class Transition extends CoreNode{
     //

@@ -17,8 +17,13 @@ $reg("initDoc", function($doc, $setting=null){
 	$this->setCurrentDoc($doc);
 	igk_ctrl_bind_css_file($this, null);
 	$polyfill  = Polyfill::Create($this->Configs->get('PolyfillVersion', 2));
-	$js = $polyfill->installCDN(); 
-	$doc->addTempScript($js)->activate("defer");
+	if (is_string($js = $polyfill->installCDN())){
+		$js = [$js];
+	} 
+	// + | auto bind data
+	foreach($js as $k){ 
+		$doc->addTempScript($k)->activate("defer");
+	}
 	$this->setPolyfill($polyfill);
 	
 });
